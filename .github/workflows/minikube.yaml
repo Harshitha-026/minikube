@@ -31,14 +31,6 @@ jobs:
           echo "Waiting for pod to be ready..."
           kubectl wait --for=condition=ready pod -l app=nodejs-app --timeout=90s
 
-      - name: Port forward and test service
-        run: |
-          echo "Port forwarding service to localhost..."
-          kubectl port-forward service/nodejs-app 8080:80 &
-          sleep 5
-          echo "Testing service endpoint:"
-          curl http://localhost:8080
-
       - name: Check pod status
         run: kubectl get pods -o wide
 
@@ -47,3 +39,13 @@ jobs:
 
       - name: View logs
         run: kubectl logs -l app=nodejs-app
+
+      - name: Port forward and test service
+        run: |
+          echo "Port forwarding service to localhost..."
+          kubectl port-forward service/nodejs-app 8080:80 &
+          sleep 5
+          echo "Testing service endpoint:"
+          curl http://localhost:8080
+
+     
