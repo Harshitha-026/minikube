@@ -26,3 +26,12 @@ jobs:
       run: |
           minikube service list
           minikube service nodejs-app --url
+         
+    - name: Check pod status
+      run: kubectl get pods -o wide
+
+    - name: Describe pods
+      run: kubectl describe pods
+
+    - name: View logs
+      run: kubectl logs -l app=nodejs-app
